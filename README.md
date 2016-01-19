@@ -1,5 +1,7 @@
 # SIFT (Simple Interface for Functional Things)
 
+[![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/upwrd/sift)
+
 SIFT is a framework that enables developers to control connected devices without
 having to understand their implementation details.
 
