@@ -2,10 +2,10 @@ package notif_test
 
 import (
 	. "gopkg.in/check.v1"
-	//"sift"
-	"sift/auth"
-	"sift/notif"
-	"sift/types"
+	//"github.com/upwrd/sift"
+	"github.com/upwrd/sift/auth"
+	"github.com/upwrd/sift/notif"
+	"github.com/upwrd/sift/types"
 )
 
 func (s *MySuite) TestComponents(c *C) {

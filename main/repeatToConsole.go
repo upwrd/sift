@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"github.com/thejerf/suture"
-	"sift"
-	"sift/notif"
+	"github.com/upwrd/sift"
+	"github.com/upwrd/sift/notif"
 
 	// log "gopkg.in/inconshreveable/log15.v2"
-	// "sift/network/ipv4"
+	// "github.com/upwrd/sift/network/ipv4"
 )
 
 func main() {

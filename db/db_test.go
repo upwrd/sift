@@ -2,11 +2,11 @@ package db
 
 import (
 	. "gopkg.in/check.v1"
-	"sift/types"
+	"github.com/upwrd/sift/types"
 	"sync"
 	"testing"
 
-	// "sift/logging"
+	// "github.com/upwrd/sift/logging"
 )
 
 // Hook up gocheck into the "go test" runner.

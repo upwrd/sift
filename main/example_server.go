@@ -5,8 +5,8 @@ package main
 import (
 	"fmt"
 	//"github.com/thejerf/suture"
-	"sift"
-	"sift/drivers/example"
+	"github.com/upwrd/sift"
+	"github.com/upwrd/sift/drivers/example"
 )
 
 func main() {

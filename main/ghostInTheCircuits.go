@@ -6,9 +6,9 @@ import (
 	"github.com/fatih/color"
 	"github.com/thejerf/suture"
 	"math/rand"
-	"sift"
-	"sift/db"
-	"sift/types"
+	"github.com/upwrd/sift"
+	"github.com/upwrd/sift/db"
+	"github.com/upwrd/sift/types"
 	"time"
 )
 

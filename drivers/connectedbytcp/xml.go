@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"sift/types"
+	"github.com/upwrd/sift/types"
 	"strconv"
 )
 

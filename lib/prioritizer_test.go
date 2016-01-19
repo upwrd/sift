@@ -2,7 +2,7 @@ package lib
 
 import (
 	. "gopkg.in/check.v1"
-	"sift/types"
+	"github.com/upwrd/sift/types"
 )
 
 /*

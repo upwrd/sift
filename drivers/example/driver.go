@@ -8,14 +8,14 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
-	"sift/lib"
-	"sift/logging"
-	"sift/network/ipv4"
-	"sift/types"
+	"github.com/upwrd/sift/lib"
+	"github.com/upwrd/sift/logging"
+	"github.com/upwrd/sift/network/ipv4"
+	"github.com/upwrd/sift/types"
 	"strconv"
 	"strings"
 	"time"
-	"sift/drivers"
+	"github.com/upwrd/sift/drivers"
 )
 
 // Log is used to log messages for the example package. Logs are disabled by

@@ -3,7 +3,7 @@ package lib
 import (
 	. "gopkg.in/check.v1"
 	"math/rand"
-	"sift/types"
+	"github.com/upwrd/sift/types"
 	"testing"
 )
 

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"sift/auth"
-	"sift/logging"
-	"sift/types"
+	"github.com/upwrd/sift/auth"
+	"github.com/upwrd/sift/logging"
+	"github.com/upwrd/sift/types"
 	"strings"
 	"sync"
 )

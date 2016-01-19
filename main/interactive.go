@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"github.com/thejerf/suture"
 	"os"
-	"sift"
-	"sift/db"
+	"github.com/upwrd/sift"
+	"github.com/upwrd/sift/db"
 	"strconv"
 	"strings"
 )

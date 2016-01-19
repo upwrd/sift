@@ -1,8 +1,8 @@
 package drivers
 
 import (
-	"sift/network/ipv4"
-	"sift/types"
+	"github.com/upwrd/sift/network/ipv4"
+	"github.com/upwrd/sift/types"
 )
 
 const (

@@ -5,7 +5,7 @@ import (
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
 	"reflect"
-	"sift/types"
+	"github.com/upwrd/sift/types"
 	"sync"
 )
 

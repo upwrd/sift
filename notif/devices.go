@@ -1,6 +1,6 @@
 package notif
 
-import "sift/types"
+import "github.com/upwrd/sift/types"
 
 // A DeviceNotifier can notify listeners of changes to Devices
 type DeviceNotifier interface {

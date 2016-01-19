@@ -5,9 +5,9 @@ package main
 import (
 	"fmt"
 	"github.com/thejerf/suture"
-	"sift"
-	"sift/notif"
-	"sift/types"
+	"github.com/upwrd/sift"
+	"github.com/upwrd/sift/notif"
+	"github.com/upwrd/sift/types"
 )
 
 const (

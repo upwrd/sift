@@ -7,11 +7,11 @@ import (
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
 	"os/exec"
-	"sift/lib"
-	"sift/logging"
-	"sift/network/ipv4"
-	"sift/types"
-	"sift/drivers"
+	"github.com/upwrd/sift/lib"
+	"github.com/upwrd/sift/logging"
+	"github.com/upwrd/sift/network/ipv4"
+	"github.com/upwrd/sift/types"
+	"github.com/upwrd/sift/drivers"
 	"time"
 )
 

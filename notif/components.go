@@ -1,6 +1,6 @@
 package notif
 
-import "sift/types"
+import "github.com/upwrd/sift/types"
 
 // A ComponentNotifier can notify listeners of changes to Components
 type ComponentNotifier interface {

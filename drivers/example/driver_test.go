@@ -1,11 +1,11 @@
 package example
 
 //import (
-//	//"sift/logging"
+//	//"github.com/upwrd/sift/logging"
 //	"fmt"
 //	. "gopkg.in/check.v1"
-//	"sift/drivers"
-//	"sift/types"
+//	"github.com/upwrd/sift/drivers"
+//	"github.com/upwrd/sift/types"
 //	"testing"
 //	"time"
 //)

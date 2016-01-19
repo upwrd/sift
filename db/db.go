@@ -8,10 +8,10 @@ import (
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
 	"io/ioutil"
 	"os"
-	rawsql "sift/db/sql"
-	"sift/lib"
-	"sift/logging"
-	"sift/types"
+	rawsql "github.com/upwrd/sift/db/sql"
+	"github.com/upwrd/sift/lib"
+	"github.com/upwrd/sift/logging"
+	"github.com/upwrd/sift/types"
 
 	// imports sqlite3 driver
 	_ "github.com/mattn/go-sqlite3"

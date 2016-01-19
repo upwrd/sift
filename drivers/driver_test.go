@@ -2,9 +2,9 @@ package drivers_test
 
 import (
 	. "gopkg.in/check.v1"
-	"sift/drivers"
-	"sift/network/ipv4"
-	"sift/types"
+	"github.com/upwrd/sift/drivers"
+	"github.com/upwrd/sift/network/ipv4"
+	"github.com/upwrd/sift/types"
 	"testing"
 )
 

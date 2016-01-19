@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"net"
-	"sift/logging"
+	"github.com/upwrd/sift/logging"
 	"sync"
 )
 

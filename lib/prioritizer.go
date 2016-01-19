@@ -4,7 +4,7 @@ import (
 	"fmt"
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"sift/types"
+	"github.com/upwrd/sift/types"
 	"sort"
 	"sync"
 )
