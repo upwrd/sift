@@ -1,0 +1,30 @@
+<gip>
+	<version>1</version>
+	<token>1234567890</token>
+	<sid>0</sid>
+	<active>1</active>
+	<name>Test</name>
+	<desc/>
+	<icon>tv.png</icon>
+	<type>manualcustom</type>
+	<image/>
+	<islocal>1</islocal>
+	<device>
+		<id>0</id>
+		<type>R</type>
+		<cmd>
+			<type>power</type>
+			<value>1</value>
+		</cmd>
+	</device>
+	<device>
+		<id>0</id>
+		<type>R</type>
+		<cmd>
+			<type>level</type>
+			<value>100</value>
+		</cmd>
+	</device>
+</gip>
+
+"cmd=SceneCreateEdit"

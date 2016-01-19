@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS location;
+DROP TABLE IF EXISTS device;
+DROP TABLE IF EXISTS component;
+DROP TABLE IF EXISTS light_emitter;
+DROP TABLE IF EXISTS media_player;

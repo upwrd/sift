@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-03.dtd">
+<coverage line-rate="0" branch-rate="0" version="" timestamp="1435642741260">
+	<packages>
+		<package name="home2o/sift/lib" line-rate="0" branch-rate="0" complexity="0">
+			<classes>
+				<class name="multiSorter" filename="/Users/don/code/go/src/home2o/sift/lib/prioritizer.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Sort" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="303" hits="5"></line>
+								<line number="304" hits="5"></line>
+							</lines>
+						</method>
+						<method name="Len" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="317" hits="5"></line>
+							</lines>
+						</method>
+						<method name="Swap" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="322" hits="26"></line>
+							</lines>
+						</method>
+						<method name="Less" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="331" hits="53"></line>
+								<line number="333" hits="53"></line>
+								<line number="334" hits="53"></line>
+								<line number="335" hits="47"></line>
+								<line number="336" hits="47"></line>
+								<line number="339" hits="22"></line>
+								<line number="342" hits="16"></line>
+								<line number="348" hits="15"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="303" hits="5"></line>
+						<line number="304" hits="5"></line>
+						<line number="317" hits="5"></line>
+						<line number="322" hits="26"></line>
+						<line number="331" hits="53"></line>
+						<line number="333" hits="53"></line>
+						<line number="334" hits="53"></line>
+						<line number="335" hits="47"></line>
+						<line number="336" hits="47"></line>
+						<line number="339" hits="22"></line>
+						<line number="342" hits="16"></line>
+						<line number="348" hits="15"></line>
+					</lines>
+				</class>
+				<class name="-" filename="/Users/don/code/go/src/home2o/sift/lib/prioritizer.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="byType" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="31" hits="72"></line>
+							</lines>
+						</method>
+						<method name="byID" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="32" hits="15"></line>
+							</lines>
+						</method>
+						<method name="CustomAdapterPrioritizer" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="37" hits="6"></line>
+								<line number="38" hits="1"></line>
+								<line number="41" hits="5"></line>
+							</lines>
+						</method>
+						<method name="DefaultAdapterPrioritizer" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="52" hits="4"></line>
+								<line number="53" hits="4"></line>
+								<line number="54" hits="4"></line>
+								<line number="55" hits="0"></line>
+								<line number="57" hits="4"></line>
+							</lines>
+						</method>
+						<method name="@52:17" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="52" hits="0"></line>
+							</lines>
+						</method>
+						<method name="@114:41" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="115" hits="5"></line>
+							</lines>
+						</method>
+						<method name="@134:41" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="135" hits="4"></line>
+							</lines>
+						</method>
+						<method name="@153:40" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="154" hits="0"></line>
+							</lines>
+						</method>
+						<method name="OrderedBy" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="310" hits="5"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="31" hits="72"></line>
+						<line number="32" hits="15"></line>
+						<line number="37" hits="6"></line>
+						<line number="38" hits="1"></line>
+						<line number="41" hits="5"></line>
+						<line number="52" hits="4"></line>
+						<line number="53" hits="4"></line>
+						<line number="54" hits="4"></line>
+						<line number="55" hits="0"></line>
+						<line number="57" hits="4"></line>
+						<line number="52" hits="0"></line>
+						<line number="115" hits="5"></line>
+						<line number="135" hits="4"></line>
+						<line number="154" hits="0"></line>
+						<line number="310" hits="5"></line>
+					</lines>
+				</class>
+				<class name="adapterPrioritizer" filename="/Users/don/code/go/src/home2o/sift/lib/prioritizer.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="SetOutput" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="61" hits="5"></line>
+								<line number="62" hits="1"></line>
+								<line number="64" hits="4"></line>
+								<line number="65" hits="1"></line>
+								<line number="68" hits="3"></line>
+								<line number="69" hits="3"></line>
+							</lines>
+						</method>
+						<method name="Consider" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="73" hits="11"></line>
+								<line number="74" hits="1"></line>
+								<line number="77" hits="10"></line>
+								<line number="79" hits="0"></line>
+								<line number="81" hits="7"></line>
+								<line number="82" hits="5"></line>
+								<line number="85" hits="3"></line>
+								<line number="86" hits="1"></line>
+							</lines>
+						</method>
+						<method name="Forget" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="92" hits="0"></line>
+							</lines>
+						</method>
+						<method name="GetHighestPriorityAdapterForDevice" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="96" hits="0"></line>
+								<line number="97" hits="0"></line>
+								<line number="98" hits="0"></line>
+								<line number="99" hits="0"></line>
+								<line number="100" hits="0"></line>
+								<line number="102" hits="0"></line>
+							</lines>
+						</method>
+						<method name="isHighestPriorityUpdate" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="107" hits="7"></line>
+								<line number="108" hits="7"></line>
+								<line number="109" hits="7"></line>
+								<line number="110" hits="2"></line>
+								<line number="111" hits="2"></line>
+								<line number="114" hits="5"></line>
+								<line number="117" hits="5"></line>
+								<line number="118" hits="3"></line>
+								<line number="119" hits="3"></line>
+								<line number="120" hits="3"></line>
+								<line number="123" hits="7"></line>
+								<line number="125" hits="7"></line>
+							</lines>
+						</method>
+						<method name="isHighestPriorityDelete" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="131" hits="3"></line>
+								<line number="132" hits="3"></line>
+								<line number="134" hits="3"></line>
+								<line number="137" hits="3"></line>
+								<line number="138" hits="2"></line>
+								<line number="139" hits="2"></line>
+								<line number="142" hits="1"></line>
+							</lines>
+						</method>
+						<method name="tryNotifyOfDelete" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="148" hits="0"></line>
+								<line number="149" hits="0"></line>
+								<line number="150" hits="0"></line>
+								<line number="153" hits="0"></line>
+								<line number="156" hits="0"></line>
+								<line number="157" hits="0"></line>
+							</lines>
+						</method>
+						<method name="ConsiderDesc" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="195" hits="7"></line>
+								<line number="196" hits="0"></line>
+								<line number="199" hits="7"></line>
+								<line number="200" hits="0"></line>
+								<line number="201" hits="0"></line>
+								<line number="204" hits="7"></line>
+								<line number="206" hits="0"></line>
+								<line number="208" hits="5"></line>
+								<line number="209" hits="4"></line>
+								<line number="213" hits="2"></line>
+								<line number="214" hits="2"></line>
+								<line number="217" hits="7"></line>
+							</lines>
+						</method>
+						<method name="isHighestPriorityUpdateDesc" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="221" hits="5"></line>
+								<line number="222" hits="0"></line>
+								<line number="226" hits="5"></line>
+								<line number="227" hits="5"></line>
+								<line number="228" hits="5"></line>
+								<line number="229" hits="3"></line>
+								<line number="230" hits="3"></line>
+								<line number="231" hits="3"></line>
+								<line number="234" hits="2"></line>
+								<line number="235" hits="2"></line>
+								<line number="236" hits="1"></line>
+								<line number="237" hits="0"></line>
+								<line number="238" hits="0"></line>
+								<line number="242" hits="2"></line>
+								<line number="243" hits="2"></line>
+								<line number="244" hits="2"></line>
+								<line number="245" hits="2"></line>
+								<line number="248" hits="5"></line>
+								<line number="249" hits="5"></line>
+								<line number="251" hits="5"></line>
+								<line number="252" hits="5"></line>
+							</lines>
+						</method>
+						<method name="isHighestPriorityDeleteDesc" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="258" hits="2"></line>
+								<line number="259" hits="2"></line>
+								<line number="260" hits="2"></line>
+								<line number="261" hits="2"></line>
+								<line number="262" hits="2"></line>
+								<line number="263" hits="2"></line>
+								<line number="265" hits="0"></line>
+								<line number="268" hits="2"></line>
+								<line number="269" hits="2"></line>
+								<line number="270" hits="2"></line>
+								<line number="273" hits="0"></line>
+							</lines>
+						</method>
+						<method name="GetHighestPriorityAdapterForDeviceDesc" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="277" hits="11"></line>
+								<line number="278" hits="11"></line>
+								<line number="280" hits="11"></line>
+								<line number="281" hits="11"></line>
+								<line number="282" hits="11"></line>
+								<line number="283" hits="11"></line>
+								<line number="284" hits="8"></line>
+								<line number="285" hits="8"></line>
+								<line number="287" hits="3"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="61" hits="5"></line>
+						<line number="62" hits="1"></line>
+						<line number="64" hits="4"></line>
+						<line number="65" hits="1"></line>
+						<line number="68" hits="3"></line>
+						<line number="69" hits="3"></line>
+						<line number="73" hits="11"></line>
+						<line number="74" hits="1"></line>
+						<line number="77" hits="10"></line>
+						<line number="79" hits="0"></line>
+						<line number="81" hits="7"></line>
+						<line number="82" hits="5"></line>
+						<line number="85" hits="3"></line>
+						<line number="86" hits="1"></line>
+						<line number="92" hits="0"></line>
+						<line number="96" hits="0"></line>
+						<line number="97" hits="0"></line>
+						<line number="98" hits="0"></line>
+						<line number="99" hits="0"></line>
+						<line number="100" hits="0"></line>
+						<line number="102" hits="0"></line>
+						<line number="107" hits="7"></line>
+						<line number="108" hits="7"></line>
+						<line number="109" hits="7"></line>
+						<line number="110" hits="2"></line>
+						<line number="111" hits="2"></line>
+						<line number="114" hits="5"></line>
+						<line number="117" hits="5"></line>
+						<line number="118" hits="3"></line>
+						<line number="119" hits="3"></line>
+						<line number="120" hits="3"></line>
+						<line number="123" hits="7"></line>
+						<line number="125" hits="7"></line>
+						<line number="131" hits="3"></line>
+						<line number="132" hits="3"></line>
+						<line number="134" hits="3"></line>
+						<line number="137" hits="3"></line>
+						<line number="138" hits="2"></line>
+						<line number="139" hits="2"></line>
+						<line number="142" hits="1"></line>
+						<line number="148" hits="0"></line>
+						<line number="149" hits="0"></line>
+						<line number="150" hits="0"></line>
+						<line number="153" hits="0"></line>
+						<line number="156" hits="0"></line>
+						<line number="157" hits="0"></line>
+						<line number="195" hits="7"></line>
+						<line number="196" hits="0"></line>
+						<line number="199" hits="7"></line>
+						<line number="200" hits="0"></line>
+						<line number="201" hits="0"></line>
+						<line number="204" hits="7"></line>
+						<line number="206" hits="0"></line>
+						<line number="208" hits="5"></line>
+						<line number="209" hits="4"></line>
+						<line number="213" hits="2"></line>
+						<line number="214" hits="2"></line>
+						<line number="217" hits="7"></line>
+						<line number="221" hits="5"></line>
+						<line number="222" hits="0"></line>
+						<line number="226" hits="5"></line>
+						<line number="227" hits="5"></line>
+						<line number="228" hits="5"></line>
+						<line number="229" hits="3"></line>
+						<line number="230" hits="3"></line>
+						<line number="231" hits="3"></line>
+						<line number="234" hits="2"></line>
+						<line number="235" hits="2"></line>
+						<line number="236" hits="1"></line>
+						<line number="237" hits="0"></line>
+						<line number="238" hits="0"></line>
+						<line number="242" hits="2"></line>
+						<line number="243" hits="2"></line>
+						<line number="244" hits="2"></line>
+						<line number="245" hits="2"></line>
+						<line number="248" hits="5"></line>
+						<line number="249" hits="5"></line>
+						<line number="251" hits="5"></line>
+						<line number="252" hits="5"></line>
+						<line number="258" hits="2"></line>
+						<line number="259" hits="2"></line>
+						<line number="260" hits="2"></line>
+						<line number="261" hits="2"></line>
+						<line number="262" hits="2"></line>
+						<line number="263" hits="2"></line>
+						<line number="265" hits="0"></line>
+						<line number="268" hits="2"></line>
+						<line number="269" hits="2"></line>
+						<line number="270" hits="2"></line>
+						<line number="273" hits="0"></line>
+						<line number="277" hits="11"></line>
+						<line number="278" hits="11"></line>
+						<line number="280" hits="11"></line>
+						<line number="281" hits="11"></line>
+						<line number="282" hits="11"></line>
+						<line number="283" hits="11"></line>
+						<line number="284" hits="8"></line>
+						<line number="285" hits="8"></line>
+						<line number="287" hits="3"></line>
+					</lines>
+				</class>
+				<class name="By" filename="/Users/don/code/go/src/home2o/sift/lib/prioritizer.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Sort" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="164" hits="3"></line>
+								<line number="168" hits="3"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="164" hits="3"></line>
+						<line number="168" hits="3"></line>
+					</lines>
+				</class>
+				<class name="tokenSorter" filename="/Users/don/code/go/src/home2o/sift/lib/prioritizer.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Len" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="178" hits="3"></line>
+							</lines>
+						</method>
+						<method name="Swap" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="183" hits="1"></line>
+							</lines>
+						</method>
+						<method name="Less" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="188" hits="2"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="178" hits="3"></line>
+						<line number="183" hits="1"></line>
+						<line number="188" hits="2"></line>
+					</lines>
+				</class>
+				<class name="-" filename="/Users/don/code/go/src/home2o/sift/lib/differ.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="AllAtOnceDiffer" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="29" hits="3"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="29" hits="3"></line>
+					</lines>
+				</class>
+				<class name="allAtOnceDiffer" filename="/Users/don/code/go/src/home2o/sift/lib/differ.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="SetOutput" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="36" hits="5"></line>
+								<line number="37" hits="1"></line>
+								<line number="39" hits="4"></line>
+								<line number="40" hits="1"></line>
+								<line number="42" hits="3"></line>
+								<line number="43" hits="3"></line>
+							</lines>
+						</method>
+						<method name="Consider" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="47" hits="205"></line>
+								<line number="48" hits="1"></line>
+								<line number="51" hits="204"></line>
+								<line number="52" hits="204"></line>
+								<line number="54" hits="204"></line>
+								<line number="55" hits="204"></line>
+								<line number="57" hits="204"></line>
+								<line number="58" hits="202"></line>
+								<line number="59" hits="102"></line>
+								<line number="63" hits="102"></line>
+								<line number="65" hits="202"></line>
+								<line number="68" hits="204"></line>
+								<line number="69" hits="1"></line>
+								<line number="72" hits="1"></line>
+								<line number="74" hits="204"></line>
+								<line number="76" hits="204"></line>
+								<line number="77" hits="102"></line>
+								<line number="79" hits="204"></line>
+								<line number="80" hits="1"></line>
+							</lines>
+						</method>
+						<method name="GetLatest" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="85" hits="2"></line>
+								<line number="86" hits="2"></line>
+								<line number="87" hits="2"></line>
+								<line number="88" hits="1"></line>
+								<line number="90" hits="1"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="36" hits="5"></line>
+						<line number="37" hits="1"></line>
+						<line number="39" hits="4"></line>
+						<line number="40" hits="1"></line>
+						<line number="42" hits="3"></line>
+						<line number="43" hits="3"></line>
+						<line number="47" hits="205"></line>
+						<line number="48" hits="1"></line>
+						<line number="51" hits="204"></line>
+						<line number="52" hits="204"></line>
+						<line number="54" hits="204"></line>
+						<line number="55" hits="204"></line>
+						<line number="57" hits="204"></line>
+						<line number="58" hits="202"></line>
+						<line number="59" hits="102"></line>
+						<line number="63" hits="102"></line>
+						<line number="65" hits="202"></line>
+						<line number="68" hits="204"></line>
+						<line number="69" hits="1"></line>
+						<line number="72" hits="1"></line>
+						<line number="74" hits="204"></line>
+						<line number="76" hits="204"></line>
+						<line number="77" hits="102"></line>
+						<line number="79" hits="204"></line>
+						<line number="80" hits="1"></line>
+						<line number="85" hits="2"></line>
+						<line number="86" hits="2"></line>
+						<line number="87" hits="2"></line>
+						<line number="88" hits="1"></line>
+						<line number="90" hits="1"></line>
+					</lines>
+				</class>
+				<class name="-" filename="/Users/don/code/go/src/home2o/sift/lib/driver.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Driver" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="34" hits="4"></line>
+								<line number="35" hits="4"></line>
+								<line number="36" hits="4"></line>
+								<line number="43" hits="4"></line>
+							</lines>
+						</method>
+						<method name="@36:5" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="37" hits="4"></line>
+								<line number="38" hits="49"></line>
+								<line number="39" hits="49"></line>
+							</lines>
+						</method>
+						<method name="AdapterChannels" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="185" hits="5"></line>
+							</lines>
+						</method>
+						<method name="newAdapterListener" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="203" hits="6"></line>
+								<line number="204" hits="0"></line>
+								<line number="206" hits="6"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="34" hits="4"></line>
+						<line number="35" hits="4"></line>
+						<line number="36" hits="4"></line>
+						<line number="43" hits="4"></line>
+						<line number="37" hits="4"></line>
+						<line number="38" hits="49"></line>
+						<line number="39" hits="49"></line>
+						<line number="185" hits="5"></line>
+						<line number="203" hits="6"></line>
+						<line number="204" hits="0"></line>
+						<line number="206" hits="6"></line>
+					</lines>
+				</class>
+				<class name="driver" filename="/Users/don/code/go/src/home2o/sift/lib/driver.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Serve" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="54" hits="2"></line>
+								<line number="55" hits="2"></line>
+								<line number="56" hits="2"></line>
+								<line number="57" hits="0"></line>
+								<line number="60" hits="2"></line>
+								<line number="61" hits="5"></line>
+								<line number="63" hits="0"></line>
+								<line number="64" hits="0"></line>
+								<line number="66" hits="3"></line>
+							</lines>
+						</method>
+						<method name="Stop" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="70" hits="0"></line>
+							</lines>
+						</method>
+						<method name="Services" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="72" hits="2"></line>
+							</lines>
+						</method>
+						<method name="SetOutput" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="75" hits="2"></line>
+								<line number="76" hits="0"></line>
+								<line number="78" hits="2"></line>
+							</lines>
+						</method>
+						<method name="addAdapter" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="82" hits="6"></line>
+								<line number="83" hits="6"></line>
+								<line number="84" hits="6"></line>
+								<line number="85" hits="6"></line>
+								<line number="86" hits="6"></line>
+								<line number="87" hits="0"></line>
+								<line number="89" hits="6"></line>
+								<line number="90" hits="6"></line>
+								<line number="91" hits="6"></line>
+							</lines>
+						</method>
+						<method name="SetIPv4AdapterFactory" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="95" hits="5"></line>
+								<line number="96" hits="1"></line>
+								<line number="98" hits="4"></line>
+								<line number="99" hits="1"></line>
+								<line number="101" hits="3"></line>
+								<line number="102" hits="3"></line>
+								<line number="103" hits="3"></line>
+								<line number="104" hits="3"></line>
+							</lines>
+						</method>
+						<method name="HandleIPv4" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="108" hits="6"></line>
+								<line number="109" hits="1"></line>
+								<line number="112" hits="5"></line>
+								<line number="113" hits="5"></line>
+								<line number="115" hits="5"></line>
+								<line number="121" hits="5"></line>
+								<line number="122" hits="5"></line>
+								<line number="124" hits="5"></line>
+								<line number="125" hits="5"></line>
+							</lines>
+						</method>
+						<method name="EnactIntent" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="129" hits="11"></line>
+								<line number="130" hits="0"></line>
+								<line number="134" hits="11"></line>
+								<line number="135" hits="11"></line>
+								<line number="136" hits="3"></line>
+								<line number="139" hits="8"></line>
+								<line number="140" hits="8"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="54" hits="2"></line>
+						<line number="55" hits="2"></line>
+						<line number="56" hits="2"></line>
+						<line number="57" hits="0"></line>
+						<line number="60" hits="2"></line>
+						<line number="61" hits="5"></line>
+						<line number="63" hits="0"></line>
+						<line number="64" hits="0"></line>
+						<line number="66" hits="3"></line>
+						<line number="70" hits="0"></line>
+						<line number="72" hits="2"></line>
+						<line number="75" hits="2"></line>
+						<line number="76" hits="0"></line>
+						<line number="78" hits="2"></line>
+						<line number="82" hits="6"></line>
+						<line number="83" hits="6"></line>
+						<line number="84" hits="6"></line>
+						<line number="85" hits="6"></line>
+						<line number="86" hits="6"></line>
+						<line number="87" hits="0"></line>
+						<line number="89" hits="6"></line>
+						<line number="90" hits="6"></line>
+						<line number="91" hits="6"></line>
+						<line number="95" hits="5"></line>
+						<line number="96" hits="1"></line>
+						<line number="98" hits="4"></line>
+						<line number="99" hits="1"></line>
+						<line number="101" hits="3"></line>
+						<line number="102" hits="3"></line>
+						<line number="103" hits="3"></line>
+						<line number="104" hits="3"></line>
+						<line number="108" hits="6"></line>
+						<line number="109" hits="1"></line>
+						<line number="112" hits="5"></line>
+						<line number="113" hits="5"></line>
+						<line number="115" hits="5"></line>
+						<line number="121" hits="5"></line>
+						<line number="122" hits="5"></line>
+						<line number="124" hits="5"></line>
+						<line number="125" hits="5"></line>
+						<line number="129" hits="11"></line>
+						<line number="130" hits="0"></line>
+						<line number="134" hits="11"></line>
+						<line number="135" hits="11"></line>
+						<line number="136" hits="3"></line>
+						<line number="139" hits="8"></line>
+						<line number="140" hits="8"></line>
+					</lines>
+				</class>
+				<class name="adapterListener" filename="/Users/don/code/go/src/home2o/sift/lib/driver.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Serve" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="214" hits="3"></line>
+								<line number="215" hits="0"></line>
+								<line number="216" hits="0"></line>
+								<line number="218" hits="3"></line>
+								<line number="219" hits="3"></line>
+								<line number="220" hits="10"></line>
+								<line number="222" hits="0"></line>
+								<line number="224" hits="7"></line>
+								<line number="225" hits="7"></line>
+								<line number="226" hits="7"></line>
+								<line number="227" hits="0"></line>
+							</lines>
+						</method>
+						<method name="Stop" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="232" hits="0"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="214" hits="3"></line>
+						<line number="215" hits="0"></line>
+						<line number="216" hits="0"></line>
+						<line number="218" hits="3"></line>
+						<line number="219" hits="3"></line>
+						<line number="220" hits="10"></line>
+						<line number="222" hits="0"></line>
+						<line number="224" hits="7"></line>
+						<line number="225" hits="7"></line>
+						<line number="226" hits="7"></line>
+						<line number="227" hits="0"></line>
+						<line number="232" hits="0"></line>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>
