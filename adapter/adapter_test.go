@@ -1,10 +1,10 @@
-package drivers_test
+package adapter_test
 
 import (
-	. "gopkg.in/check.v1"
-	"github.com/upwrd/sift/drivers"
+	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/network/ipv4"
 	"github.com/upwrd/sift/types"
+	. "gopkg.in/check.v1"
 	"testing"
 )
 
@@ -35,7 +35,7 @@ func (a *testAdapter) UpdateChan() chan interface{} {
 // TestTestAdapter tests testAdapter (duh)
 func (s *TestSIFTLibSuite) TestTestAdapter(c *C) {
 	t := testAdapter{updateChan: make(chan interface{}, 10)}
-	a := drivers.Adapter(&t)
+	a := adapter.Adapter(&t)
 	c.Assert(a, NotNil)
 
 	// Test UpdateChan()
@@ -57,7 +57,7 @@ func (s *TestSIFTLibSuite) TestTestAdapter(c *C) {
 //
 type testIPv4AdapterFactory struct{}
 
-func (t testIPv4AdapterFactory) HandleIPv4(ipv4.ServiceContext) drivers.Adapter {
+func (t testIPv4AdapterFactory) HandleIPv4(ipv4.ServiceContext) adapter.Adapter {
 	return &testAdapter{updateChan: make(chan interface{}, 10), repeater: true}
 }
 func (t testIPv4AdapterFactory) GetIPv4Description() ipv4.ServiceDescription {
@@ -67,7 +67,7 @@ func (t testIPv4AdapterFactory) Name() string { return "test_adapter_factory" }
 
 func (s *TestSIFTLibSuite) TestIPv4AdapterFactory(c *C) {
 	taf := testIPv4AdapterFactory{}
-	t := drivers.IPv4DriverFactory(taf)
+	t := adapter.IPv4AdapterFactory(taf)
 	c.Assert(t, NotNil)
 
 	desc := t.GetIPv4Description()

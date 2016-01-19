@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"github.com/upwrd/sift/drivers"
+	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/network/ipv4"
@@ -44,7 +44,7 @@ type AdapterFactory struct{}
 func NewFactory() *AdapterFactory { return &AdapterFactory{} }
 
 // HandleIPv4 spawns a new Adapter to handle a context
-func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) drivers.Adapter {
+func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) adapter.Adapter {
 	return newIPv4Adapter(context)
 }
 

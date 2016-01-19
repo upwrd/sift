@@ -6,7 +6,7 @@ import (
 	"fmt"
 	//"github.com/thejerf/suture"
 	"github.com/upwrd/sift"
-	"github.com/upwrd/sift/drivers/example"
+	"github.com/upwrd/sift/adapter/example"
 )
 
 func main() {

@@ -20,10 +20,10 @@ import (
 	"os/signal"
 	"github.com/upwrd/sift/auth"
 	"github.com/upwrd/sift/db"
-	"github.com/upwrd/sift/drivers"
-	"github.com/upwrd/sift/drivers/chromecast"
-	cbtcp "github.com/upwrd/sift/drivers/connectedbytcp"
-	"github.com/upwrd/sift/drivers/example"
+	"github.com/upwrd/sift/adapter"
+	"github.com/upwrd/sift/adapter/chromecast"
+	cbtcp "github.com/upwrd/sift/adapter/connectedbytcp"
+	"github.com/upwrd/sift/adapter/example"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/network/ipv4"
@@ -72,8 +72,8 @@ type Server struct {
 	notif.Receiver  // Adds methods to post notifications
 
 	// Factories, adapters and their updates
-	factoriesByDescriptionID map[string]drivers.AdapterFactory
-	adapters                 map[string]drivers.Adapter
+	factoriesByDescriptionID map[string]adapter.AdapterFactory
+	adapters                 map[string]adapter.Adapter
 	updatesFromAdapters      chan updatePackage
 	prioritizer              lib.IPrioritizer
 
@@ -106,8 +106,8 @@ func NewServer(dbpath string) (*Server, error) {
 		Provider:   notifier,
 		Receiver:   notifier,
 
-		factoriesByDescriptionID: make(map[string]drivers.AdapterFactory),
-		adapters:                 make(map[string]drivers.Adapter),
+		factoriesByDescriptionID: make(map[string]adapter.AdapterFactory),
+		adapters:                 make(map[string]adapter.Adapter),
 		updatesFromAdapters:      make(chan updatePackage, updateChanWidth),
 		prioritizer:              lib.NewPrioritizer(nil), // uses default sorting
 
@@ -212,13 +212,13 @@ type updatePackage struct {
 // Server will begin searching for services matching the AdapterFactory's
 // description. If any are found, the Server will use the AdapterFactory to
 // create an Adapter to handle the sevice.
-func (s *Server) AddAdapterFactory(factory drivers.AdapterFactory) (string, error) {
+func (s *Server) AddAdapterFactory(factory adapter.AdapterFactory) (string, error) {
 	var id string
 	switch typed := factory.(type) {
 	default:
 		s.log.Warn("unhandled adapter factory type", "name", factory.Name(), "type", fmt.Sprintf("%T", factory))
 		return "", fmt.Errorf("unhandled adapter factory type: %T", factory)
-	case drivers.IPv4DriverFactory:
+	case adapter.IPv4AdapterFactory:
 		id = s.ipv4Scan.AddDescription(typed.GetIPv4Description())
 		s.factoriesByDescriptionID[id] = factory
 	}
@@ -226,10 +226,10 @@ func (s *Server) AddAdapterFactory(factory drivers.AdapterFactory) (string, erro
 	return id, nil
 }
 
-var defaultAdapterFactories = []func() drivers.AdapterFactory{
-	func() drivers.AdapterFactory { return example.NewFactory(55442) }, // SIFT example server
-	func() drivers.AdapterFactory { return cbtcp.NewFactory() },        // Connected by TCP
-	func() drivers.AdapterFactory { return chromecast.NewFactory() },   // Google Chromecast
+var defaultAdapterFactories = []func() adapter.AdapterFactory{
+	func() adapter.AdapterFactory { return example.NewFactory(55442) }, // SIFT example server
+	func() adapter.AdapterFactory { return cbtcp.NewFactory() },        // Connected by TCP
+	func() adapter.AdapterFactory { return chromecast.NewFactory() },   // Google Chromecast
 }
 
 // AddDefaults adds default Adapter Factories to the SIFT server
@@ -243,7 +243,7 @@ func (s *Server) AddDefaults() error {
 	return nil
 }
 
-func (s *Server) addAdapter(adapter drivers.Adapter) string {
+func (s *Server) addAdapter(adapter adapter.Adapter) string {
 	id := uuid.New()
 	s.adapters[id] = adapter
 	return id
@@ -333,7 +333,7 @@ func (s *Server) tryHandlingIPv4Service(n ipv4.ServiceFoundNotification) {
 		// Find the factory matching the id
 		if factory, ok := s.factoriesByDescriptionID[id]; ok {
 			// ...it should be an IPv4 Factory
-			if asIPv4Factory, ok := factory.(drivers.IPv4DriverFactory); !ok {
+			if asIPv4Factory, ok := factory.(adapter.IPv4AdapterFactory); !ok {
 				s.log.Error("expected an IPv4 factory, got something different!", "got", fmt.Sprintf("%T", factory))
 			} else {
 				// build a context for the given IP

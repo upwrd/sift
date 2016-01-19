@@ -15,7 +15,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"github.com/upwrd/sift/drivers"
+	"github.com/upwrd/sift/adapter"
 )
 
 // Log is used to log messages for the example package. Logs are disabled by
@@ -55,7 +55,7 @@ func NewFactory(port uint16) *AdapterFactory {
 }
 
 // HandleIPv4 spawns a new Adapter to handle a context
-func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) drivers.Adapter {
+func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) adapter.Adapter {
 	return newAdapter(f.port, context)
 }
 

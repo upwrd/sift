@@ -11,7 +11,7 @@ import (
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/network/ipv4"
 	"github.com/upwrd/sift/types"
-	"github.com/upwrd/sift/drivers"
+	"github.com/upwrd/sift/adapter"
 	"time"
 )
 
@@ -37,7 +37,7 @@ func NewFactory() *AdapterFactory {
 }
 
 // HandleIPv4 spawns a new Adapter to handle an IPv4 context
-func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) drivers.Adapter {
+func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) adapter.Adapter {
 	return newAdapter(context)
 }
 

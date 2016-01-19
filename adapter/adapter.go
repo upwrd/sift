@@ -1,4 +1,4 @@
-package drivers
+package adapter
 
 import (
 	"github.com/upwrd/sift/network/ipv4"
@@ -28,8 +28,8 @@ type AdapterFactory interface {
 	Name() string // Factories have names
 }
 
-// An IPv4DriverFactory creates Adapters which control IPv4 services.
-type IPv4DriverFactory interface {
+// An IPv4AdapterFactory creates Adapters which control IPv4 services.
+type IPv4AdapterFactory interface {
 	AdapterFactory
 	HandleIPv4(ipv4.ServiceContext) Adapter
 	GetIPv4Description() ipv4.ServiceDescription
