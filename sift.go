@@ -14,21 +14,21 @@ import (
 	"code.google.com/p/go-uuid/uuid"
 	"fmt"
 	"github.com/thejerf/suture"
-	log "gopkg.in/inconshreveable/log15.v2"
-	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"os"
-	"os/signal"
-	"github.com/upwrd/sift/auth"
-	"github.com/upwrd/sift/db"
 	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/adapter/chromecast"
 	cbtcp "github.com/upwrd/sift/adapter/connectedbytcp"
 	"github.com/upwrd/sift/adapter/example"
+	"github.com/upwrd/sift/auth"
+	"github.com/upwrd/sift/db"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/network/ipv4"
 	"github.com/upwrd/sift/notif"
 	"github.com/upwrd/sift/types"
+	log "gopkg.in/inconshreveable/log15.v2"
+	logext "gopkg.in/inconshreveable/log15.v2/ext"
+	"os"
+	"os/signal"
 	"sync"
 	"syscall"
 	"time"
@@ -72,7 +72,7 @@ type Server struct {
 	notif.Receiver  // Adds methods to post notifications
 
 	// Factories, adapters and their updates
-	factoriesByDescriptionID map[string]adapter.AdapterFactory
+	factoriesByDescriptionID map[string]adapter.Factory
 	adapters                 map[string]adapter.Adapter
 	updatesFromAdapters      chan updatePackage
 	prioritizer              lib.IPrioritizer
@@ -106,7 +106,7 @@ func NewServer(dbpath string) (*Server, error) {
 		Provider:   notifier,
 		Receiver:   notifier,
 
-		factoriesByDescriptionID: make(map[string]adapter.AdapterFactory),
+		factoriesByDescriptionID: make(map[string]adapter.Factory),
 		adapters:                 make(map[string]adapter.Adapter),
 		updatesFromAdapters:      make(chan updatePackage, updateChanWidth),
 		prioritizer:              lib.NewPrioritizer(nil), // uses default sorting
@@ -212,13 +212,13 @@ type updatePackage struct {
 // Server will begin searching for services matching the AdapterFactory's
 // description. If any are found, the Server will use the AdapterFactory to
 // create an Adapter to handle the sevice.
-func (s *Server) AddAdapterFactory(factory adapter.AdapterFactory) (string, error) {
+func (s *Server) AddAdapterFactory(factory adapter.Factory) (string, error) {
 	var id string
 	switch typed := factory.(type) {
 	default:
 		s.log.Warn("unhandled adapter factory type", "name", factory.Name(), "type", fmt.Sprintf("%T", factory))
 		return "", fmt.Errorf("unhandled adapter factory type: %T", factory)
-	case adapter.IPv4AdapterFactory:
+	case adapter.IPv4Factory:
 		id = s.ipv4Scan.AddDescription(typed.GetIPv4Description())
 		s.factoriesByDescriptionID[id] = factory
 	}
@@ -226,10 +226,10 @@ func (s *Server) AddAdapterFactory(factory adapter.AdapterFactory) (string, erro
 	return id, nil
 }
 
-var defaultAdapterFactories = []func() adapter.AdapterFactory{
-	func() adapter.AdapterFactory { return example.NewFactory(55442) }, // SIFT example server
-	func() adapter.AdapterFactory { return cbtcp.NewFactory() },        // Connected by TCP
-	func() adapter.AdapterFactory { return chromecast.NewFactory() },   // Google Chromecast
+var defaultAdapterFactories = []func() adapter.Factory{
+	func() adapter.Factory { return example.NewFactory(55442) }, // SIFT example server
+	func() adapter.Factory { return cbtcp.NewFactory() },        // Connected by TCP
+	func() adapter.Factory { return chromecast.NewFactory() },   // Google Chromecast
 }
 
 // AddDefaults adds default Adapter Factories to the SIFT server
@@ -333,7 +333,7 @@ func (s *Server) tryHandlingIPv4Service(n ipv4.ServiceFoundNotification) {
 		// Find the factory matching the id
 		if factory, ok := s.factoriesByDescriptionID[id]; ok {
 			// ...it should be an IPv4 Factory
-			if asIPv4Factory, ok := factory.(adapter.IPv4AdapterFactory); !ok {
+			if asIPv4Factory, ok := factory.(adapter.IPv4Factory); !ok {
 				s.log.Error("expected an IPv4 factory, got something different!", "got", fmt.Sprintf("%T", factory))
 			} else {
 				// build a context for the given IP
@@ -390,7 +390,7 @@ func (s *Server) tryHandlingIPv4Service(n ipv4.ServiceFoundNotification) {
 						// If the value is ipv4.DriverStatusHandling, it is treated as a
 						// keep-alive heartbeat message. Any other status indicates that
 						// the adapter is no longer handling the service.
-						if status != ipv4.DriverStatusHandling {
+						if status != ipv4.AdapterStatusHandling {
 							s.log.Debug("adapter returned non-handling status", "status", status)
 							break waitUntilFailure
 						}

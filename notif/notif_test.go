@@ -1,10 +1,10 @@
 package notif_test
 
 import (
-	. "gopkg.in/check.v1"
 	"github.com/upwrd/sift"
 	"github.com/upwrd/sift/auth"
 	"github.com/upwrd/sift/notif"
+	. "gopkg.in/check.v1"
 	"testing"
 )
 

@@ -3,19 +3,19 @@ package example
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/upwrd/sift/adapter"
+	"github.com/upwrd/sift/lib"
+	"github.com/upwrd/sift/logging"
+	"github.com/upwrd/sift/network/ipv4"
+	"github.com/upwrd/sift/types"
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
 	"io/ioutil"
 	"net"
 	"net/http"
-	"github.com/upwrd/sift/lib"
-	"github.com/upwrd/sift/logging"
-	"github.com/upwrd/sift/network/ipv4"
-	"github.com/upwrd/sift/types"
 	"strconv"
 	"strings"
 	"time"
-	"github.com/upwrd/sift/adapter"
 )
 
 // Log is used to log messages for the example package. Logs are disabled by
@@ -55,7 +55,10 @@ func NewFactory(port uint16) *AdapterFactory {
 }
 
 // HandleIPv4 spawns a new Adapter to handle a context
-func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) adapter.Adapter {
+func (f *AdapterFactory) HandleIPv4(context *ipv4.ServiceContext) adapter.Adapter {
+	if context == nil {
+		return nil
+	}
 	return newAdapter(f.port, context)
 }
 
@@ -71,7 +74,7 @@ func (f *AdapterFactory) Name() string { return "SIFT example" }
 type ipv4Adapter struct {
 	port             uint16
 	updateChan       chan interface{}
-	context          ipv4.ServiceContext
+	context          *ipv4.ServiceContext
 	differ           lib.SetOutputBasedDeviceDiffer
 	desc             lib.AdapterDescription
 	stop             chan struct{}
@@ -79,7 +82,7 @@ type ipv4Adapter struct {
 	log              log.Logger
 }
 
-func newAdapter(port uint16, context ipv4.ServiceContext) *ipv4Adapter {
+func newAdapter(port uint16, context *ipv4.ServiceContext) *ipv4Adapter {
 	log := Log.New("obj", "example ipv4 adapter", "id", logext.RandId(8), "adapting", context.IP.String())
 	log.Info("example adapter created")
 	adapter := &ipv4Adapter{
@@ -110,15 +113,15 @@ func (a *ipv4Adapter) UpdateChan() chan interface{} {
 // heartbeat messages will be sent to the adapter's context's status channel.
 func (a *ipv4Adapter) Serve() {
 	// Check if the ipv4 context that we were given represents an example service
-	if !a.isExampleService(a.context) {
+	if !a.isExampleService() {
 		a.log.Info("%s was not an example service\n", a.context.IP.String())
-		a.context.SendStatus(ipv4.DriverStatusIncorrectService)
+		a.context.SendStatus(ipv4.AdapterStatusIncorrectService)
 		return
 	}
 
 	if a.differ == nil {
 		a.log.Warn("example ipv4 Adapter was improperly instantiated!")
-		a.context.SendStatus(ipv4.DriverStatusError)
+		a.context.SendStatus(ipv4.AdapterStatusError)
 		return
 	}
 
@@ -135,7 +138,7 @@ func (a *ipv4Adapter) Serve() {
 				return
 			case <-heartbeat.C:
 				// Try to send a heartbeat status
-				if err := a.context.SendStatus(ipv4.DriverStatusHandling); err != nil {
+				if err := a.context.SendStatus(ipv4.AdapterStatusHandling); err != nil {
 					return // Context must have been killed, stop heartbeating
 				}
 				heartbeat.Reset(timeBetweenHeartbeats)
@@ -157,7 +160,7 @@ func (a *ipv4Adapter) Serve() {
 		devices, err := a.getDevicesFromServer(a.context)
 		if err != nil {
 			a.log.Warn("error getting devices from server", "err", err)
-			a.context.SendStatus(ipv4.DriverStatusError)
+			a.context.SendStatus(ipv4.AdapterStatusError)
 			return
 		}
 
@@ -201,8 +204,8 @@ func (a *ipv4Adapter) enactSetLightEmitterIntent(target types.ExternalComponentI
 
 	// Build a component using the server-side light type
 	light := Light{
-		// IsOn: false,  <-- default value
-		// OutputInPercent: 0,  <-- default value
+	// IsOn: false,  <-- default value
+	// OutputInPercent: 0,  <-- default value
 	}
 
 	if intent.BrightnessInPercent > 0 {
@@ -219,7 +222,7 @@ func (a *ipv4Adapter) enactSetLightEmitterIntent(target types.ExternalComponentI
 //
 // IPv4 Helper functions (retrieving data from server)
 //
-func (a *ipv4Adapter) getDataFromServer(context ipv4.ServiceContext) (data []byte, err error) {
+func (a *ipv4Adapter) getDataFromServer(context *ipv4.ServiceContext) (data []byte, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = fmt.Errorf("getDataFromServer %v received panic: %v", context.IP.String(), err.Error())
@@ -277,18 +280,18 @@ func getDevicesURL(ip net.IP, port uint16) string {
 	*/
 }
 
-func (a *ipv4Adapter) isExampleService(context ipv4.ServiceContext) bool {
+func (a *ipv4Adapter) isExampleService() bool {
 	defer func() {
 		if r := recover(); r != nil {
-			Log.Warn("paniced during call to isExampleServer(%v): %v\n", context.IP.String(), r)
+			Log.Warn("paniced during call to isExampleServer(%v): %v\n", a.context.IP.String(), r)
 		}
 	}()
 
 	var url string
-	if context.Port != nil {
-		url = getStatusURL(context.IP, *context.Port)
+	if a.context.Port != nil {
+		url = getStatusURL(a.context.IP, *a.context.Port)
 	} else {
-		url = getStatusURL(context.IP, a.port)
+		url = getStatusURL(a.context.IP, a.port)
 	}
 
 	res, err := http.Get(url)
@@ -318,7 +321,7 @@ func (a *ipv4Adapter) isExampleService(context ipv4.ServiceContext) bool {
 	return true
 }
 
-func (a *ipv4Adapter) getDevicesFromServer(context ipv4.ServiceContext) (map[types.ExternalDeviceID]types.Device, error) {
+func (a *ipv4Adapter) getDevicesFromServer(context *ipv4.ServiceContext) (map[types.ExternalDeviceID]types.Device, error) {
 	data, err := a.getDataFromServer(context) // Get data from server
 	if err != nil {
 		a.log.Warn("error getting devices from server", "err", err)
@@ -398,7 +401,7 @@ func convertLight(light Light) types.LightEmitter {
 	}
 }
 
-func (a *ipv4Adapter) setComponent(context ipv4.ServiceContext, devID, compID string, comp interface{}) error {
+func (a *ipv4Adapter) setComponent(context *ipv4.ServiceContext, devID, compID string, comp interface{}) error {
 	//typed := comp.GetTyped()           // Wrap component with its Type
 	asJSON, err := json.Marshal(comp) // convert Component to JSON
 	if err != nil {

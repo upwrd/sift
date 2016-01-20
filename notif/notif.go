@@ -2,11 +2,11 @@ package notif
 
 import (
 	"fmt"
-	log "gopkg.in/inconshreveable/log15.v2"
-	logext "gopkg.in/inconshreveable/log15.v2/ext"
 	"github.com/upwrd/sift/auth"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/types"
+	log "gopkg.in/inconshreveable/log15.v2"
+	logext "gopkg.in/inconshreveable/log15.v2/ext"
 	"strings"
 	"sync"
 )
@@ -56,7 +56,7 @@ type ProviderReceiver interface {
 type Notifier struct {
 	authorizor auth.Authorizor
 
-	lock         sync.RWMutex
+	lock         *sync.RWMutex
 	channelLocks map[chan interface{}]sync.Mutex
 
 	// filtersByChannels records the filters used to set up each channel so we can undo them
@@ -90,7 +90,7 @@ func New(authorizor auth.Authorizor) *Notifier {
 	return &Notifier{
 		authorizor: authorizor,
 
-		lock:         sync.RWMutex{},
+		lock:         &sync.RWMutex{},
 		channelLocks: make(map[chan interface{}]sync.Mutex),
 
 		filtersByChanel:    make(map[chan interface{}][]interface{}),

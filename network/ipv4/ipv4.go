@@ -3,8 +3,8 @@ package ipv4
 import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"net"
 	"github.com/upwrd/sift/logging"
+	"net"
 	"sync"
 )
 
@@ -14,16 +14,17 @@ import (
 // https://godoc.org/gopkg.in/inconshreveable/log15.v2)
 var Log = logging.Log.New("pkg", "network/ipv4")
 
-type driverStatus int
+// AdapterStatus describes the status of an Adapter
+type AdapterStatus int
 
 var credentialsByFactoryKey = map[string]map[string]string{}
 
-// Possible Driver statuses
+// Possible Adapter statuses
 const (
-	DriverStatusIncorrectService driverStatus = iota // Context pointed to a service that the driver does not control
-	DriverStatusHandling                             // Driver is handling the Context
-	DriverStatusDone                                 // Driver is done handling the Context
-	DriverStatusError                                // Driver received an error
+	AdapterStatusIncorrectService AdapterStatus = iota // Context pointed to a service that the Adapter does not control
+	AdapterStatusHandling                              // Adapter is handling the Context
+	AdapterStatusDone                                  // Adapter is done handling the Context
+	AdapterStatusError                                 // Adapter received an error
 )
 
 // ServiceDescription describes ipv4 characteristics of a networked service
@@ -37,15 +38,15 @@ type ServiceContext struct {
 	Port        *uint16           // TODO REMOVE (prev: optionally specify the port of the running service)
 	Credentials map[string]string //TODO REMOVE
 
-	status      chan driverStatus
-	slock       sync.Mutex
+	status      chan AdapterStatus
+	slock       *sync.Mutex
 	dbpath      string
 	adapterName string
 }
 
 // SendStatus sends a status to the creator of the Context. Will return an
 // error if the Context has been killed, otherwise nil.
-func (s ServiceContext) SendStatus(ds driverStatus) error {
+func (s ServiceContext) SendStatus(ds AdapterStatus) error {
 	s.slock.Lock()
 	defer s.slock.Unlock()
 
@@ -62,29 +63,31 @@ func (s ServiceContext) SendStatus(ds driverStatus) error {
 // BuildContext builds a new ServiceContext with the given IP. The second
 // return value is a channel which will receive status updates from calls to
 // context.SendStatus() until the Context is killed.
-func BuildContext(ip net.IP, dbpath, adapterName string) (ServiceContext, <-chan driverStatus) {
-	status := make(chan driverStatus, 10)
-	return ServiceContext{
+func BuildContext(ip net.IP, dbpath, adapterName string) (*ServiceContext, <-chan AdapterStatus) {
+	status := make(chan AdapterStatus, 10)
+	return &ServiceContext{
 		IP:          ip,
 		status:      status,
 		Credentials: make(map[string]string), //TODO REMOVE
-		slock:       sync.Mutex{},
+		slock:       &sync.Mutex{},
 		dbpath:      dbpath,
 		adapterName: adapterName,
 	}, status
 }
 
-// KillContextAndSave kills the specified context. Subsequent calls on the
-// Context will return errors
-func KillContext(context ServiceContext) {
-	context.slock.Lock()
-	defer context.slock.Unlock()
-	if context.status != nil {
-		close(context.status)
+// KillContext kills the specified context. Subsequent calls on the Context
+// will return errors
+func KillContext(context *ServiceContext) {
+	if context != nil {
+		context.slock.Lock()
+		defer context.slock.Unlock()
+		if context.status != nil {
+			close(context.status)
+		}
+		// Unset the status channel so future callers to SendStatus will know that
+		// the Context has been killed
+		context.status = nil
 	}
-	// Unset the status channel so future callers to SendStatus will know that
-	// the Context has been killed
-	context.status = nil
 }
 
 // StoreData will store a string of data with the Context, which is retrievable

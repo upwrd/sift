@@ -3,9 +3,9 @@ package auth
 
 import (
 	"code.google.com/p/go-uuid/uuid"
+	"github.com/upwrd/sift/logging"
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"github.com/upwrd/sift/logging"
 )
 
 // Log is used to log messages for the auth package. Logs are disabled by

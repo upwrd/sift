@@ -1,8 +1,8 @@
 package lib
 
 import (
-	. "gopkg.in/check.v1"
 	"github.com/upwrd/sift/types"
+	. "gopkg.in/check.v1"
 )
 
 /*

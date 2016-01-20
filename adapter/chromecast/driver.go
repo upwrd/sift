@@ -4,14 +4,14 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	log "gopkg.in/inconshreveable/log15.v2"
-	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"os/exec"
+	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/network/ipv4"
 	"github.com/upwrd/sift/types"
-	"github.com/upwrd/sift/adapter"
+	log "gopkg.in/inconshreveable/log15.v2"
+	logext "gopkg.in/inconshreveable/log15.v2/ext"
+	"os/exec"
 	"time"
 )
 
@@ -37,7 +37,10 @@ func NewFactory() *AdapterFactory {
 }
 
 // HandleIPv4 spawns a new Adapter to handle an IPv4 context
-func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) adapter.Adapter {
+func (f *AdapterFactory) HandleIPv4(context *ipv4.ServiceContext) adapter.Adapter {
+	if context == nil {
+		return nil
+	}
 	return newAdapter(context)
 }
 
@@ -52,14 +55,14 @@ func (f *AdapterFactory) Name() string { return "Google Chromecast" }
 
 type ipv4Adapter struct {
 	updateChan chan interface{}
-	context    ipv4.ServiceContext
+	context    *ipv4.ServiceContext
 	differ     lib.SetOutputBasedDeviceDiffer
 	desc       lib.AdapterDescription
 	stop       chan struct{}
 	log        log.Logger
 }
 
-func newAdapter(context ipv4.ServiceContext) *ipv4Adapter {
+func newAdapter(context *ipv4.ServiceContext) *ipv4Adapter {
 	log := Log.New("obj", "Google Chromecast ipv4 adapter", "id", logext.RandId(8), "adapting", context.IP.String())
 	log.Info("Google Chromecast adapter created", "adapting", context.IP.String())
 	adapter := &ipv4Adapter{
@@ -116,7 +119,7 @@ func (a *ipv4Adapter) Serve() {
 				return
 			case <-heartbeat.C:
 				// Try to send a heartbeat status
-				if err := a.context.SendStatus(ipv4.DriverStatusHandling); err != nil {
+				if err := a.context.SendStatus(ipv4.AdapterStatusHandling); err != nil {
 					return // Context must have been killed, stop heartbeating
 				}
 				heartbeat.Reset(timeBetweenHeartbeats)

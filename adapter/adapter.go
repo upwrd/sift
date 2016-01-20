@@ -21,16 +21,16 @@ type Adapter interface {
 	UpdateChan() chan interface{}
 }
 
-// AdapterFactory is an interface that all factories must satisfy.
+// Factory is an interface that all factories must satisfy.
 // For now, the only requirement is that Factories have names (so we can log
 // and debug appropriately).
-type AdapterFactory interface {
+type Factory interface {
 	Name() string // Factories have names
 }
 
-// An IPv4AdapterFactory creates Adapters which control IPv4 services.
-type IPv4AdapterFactory interface {
-	AdapterFactory
-	HandleIPv4(ipv4.ServiceContext) Adapter
+// An IPv4Factory creates Adapters which control IPv4 services.
+type IPv4Factory interface {
+	Factory
+	HandleIPv4(*ipv4.ServiceContext) Adapter
 	GetIPv4Description() ipv4.ServiceDescription
 }

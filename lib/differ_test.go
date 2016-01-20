@@ -1,9 +1,9 @@
 package lib
 
 import (
+	"github.com/upwrd/sift/types"
 	. "gopkg.in/check.v1"
 	"math/rand"
-	"github.com/upwrd/sift/types"
 	"testing"
 )
 
@@ -52,7 +52,7 @@ func (s *TestSIFTLibSuite) TestAllAtOnceDiffer(c *C) {
 	c.Assert(len(dest), Equals, 1)
 	update := <-dest
 	expected := DeviceUpdated{
-		ID:      key1,
+		ID:       key1,
 		NewState: device1,
 	}
 	c.Assert(update, DeepEquals, expected)
@@ -86,7 +86,7 @@ func (s *TestSIFTLibSuite) TestAllAtOnceDiffer(c *C) {
 	c.Assert(len(dest), Equals, 1)
 	update = <-dest
 	expected = DeviceUpdated{
-		ID:      key1,
+		ID:       key1,
 		NewState: device1Updated,
 	}
 	c.Assert(update, DeepEquals, expected)
@@ -122,7 +122,7 @@ func (s *TestSIFTLibSuite) TestGetLatest(c *C) {
 	c.Assert(len(dest), Equals, 1)
 	update := <-dest
 	expected := DeviceUpdated{
-		ID:      id1,
+		ID:       id1,
 		NewState: device1,
 	}
 	c.Assert(update, DeepEquals, expected)
@@ -164,7 +164,7 @@ func (s *TestSIFTLibSuite) TestSynchronousDiff(c *C) {
 			obtained := <-dest
 
 			expected := DeviceUpdated{
-				ID:      keyX,
+				ID:       keyX,
 				NewState: device,
 			}
 			c.Assert(obtained, DeepEquals, expected, Commentf("iteration %v", i))

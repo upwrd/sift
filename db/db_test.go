@@ -1,8 +1,8 @@
 package db
 
 import (
-	. "gopkg.in/check.v1"
 	"github.com/upwrd/sift/types"
+	. "gopkg.in/check.v1"
 	"sync"
 	"testing"
 
@@ -36,7 +36,7 @@ type insertAndGetTest struct {
 	expectedErr string
 }
 
-func upsertAndGetTests() []insertAndGetTest{
+func upsertAndGetTests() []insertAndGetTest {
 	return []insertAndGetTest{
 		// Should fail
 		{

@@ -3,8 +3,8 @@ package connectedbytcpnew
 import (
 	"encoding/xml"
 	"fmt"
-	"io"
 	"github.com/upwrd/sift/types"
+	"io"
 	"strconv"
 )
 

@@ -2,9 +2,9 @@ package lib
 
 import (
 	"fmt"
+	"github.com/upwrd/sift/types"
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"github.com/upwrd/sift/types"
 	"sort"
 	"sync"
 )

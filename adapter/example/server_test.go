@@ -228,7 +228,7 @@ var componentTests = map[string]Component{
 		OutputInPercent: uint8(42),
 	},
 	"lock": Lock{
-		IsOpen:        true,
+		IsOpen: true,
 	},
 }
 
@@ -259,7 +259,7 @@ var deviceTests = map[string]Device{
 				OutputInPercent: uint8(42),
 			},
 			"lock": Lock{
-				IsOpen:        true,
+				IsOpen: true,
 			},
 		},
 	},

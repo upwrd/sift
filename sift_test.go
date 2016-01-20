@@ -2,13 +2,13 @@ package sift_test
 
 import (
 	"fmt"
-	. "gopkg.in/check.v1"
-	"net"
 	"github.com/upwrd/sift"
-	"github.com/upwrd/sift/db"
 	"github.com/upwrd/sift/adapter/example"
+	"github.com/upwrd/sift/db"
 	"github.com/upwrd/sift/notif"
 	"github.com/upwrd/sift/types"
+	. "gopkg.in/check.v1"
+	"net"
 	"strconv"
 	"testing"
 	"time"

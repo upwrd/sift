@@ -5,16 +5,16 @@ import (
 	uuidlib "code.google.com/p/go-uuid/uuid"
 	"crypto/tls"
 	"fmt"
-	log "gopkg.in/inconshreveable/log15.v2"
-	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"io/ioutil"
-	"net/http"
-	"net/url"
 	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/network/ipv4"
 	"github.com/upwrd/sift/types"
+	log "gopkg.in/inconshreveable/log15.v2"
+	logext "gopkg.in/inconshreveable/log15.v2/ext"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -44,7 +44,10 @@ type AdapterFactory struct{}
 func NewFactory() *AdapterFactory { return &AdapterFactory{} }
 
 // HandleIPv4 spawns a new Adapter to handle a context
-func (f *AdapterFactory) HandleIPv4(context ipv4.ServiceContext) adapter.Adapter {
+func (f *AdapterFactory) HandleIPv4(context *ipv4.ServiceContext) adapter.Adapter {
+	if context == nil {
+		return nil
+	}
 	return newIPv4Adapter(context)
 }
 
@@ -59,13 +62,13 @@ func (f *AdapterFactory) Name() string { return "Connected by TCP" }
 
 type ipv4Adapter struct {
 	updateChan chan interface{}
-	context    ipv4.ServiceContext
+	context    *ipv4.ServiceContext
 	differ     lib.SetOutputBasedDeviceDiffer
 	stop       chan struct{}
 	log        log.Logger
 }
 
-func newIPv4Adapter(context ipv4.ServiceContext) *ipv4Adapter {
+func newIPv4Adapter(context *ipv4.ServiceContext) *ipv4Adapter {
 	log := Log.New("obj", "Connected By TCP IPv4 Adapter", "id", logext.RandId(8), "adapting", context.IP.String())
 	adapter := &ipv4Adapter{
 		updateChan: make(chan interface{}, 100),
@@ -87,15 +90,15 @@ func newIPv4Adapter(context ipv4.ServiceContext) *ipv4Adapter {
 // heartbeat messages will be sent to the adapter's context's status channel.
 func (a *ipv4Adapter) Serve() {
 	// Check if the ipv4 context that we were given represents a Connected By TCP service
-	if !a.isConnectedByTCPService(a.context) {
+	if !a.isConnectedByTCPService() {
 		a.log.Info("service is not a Connected By TCP service", "ip", a.context.IP.String())
-		a.context.SendStatus(ipv4.DriverStatusIncorrectService)
+		a.context.SendStatus(ipv4.AdapterStatusIncorrectService)
 		return
 	}
 
 	if a.differ == nil {
 		a.log.Warn("Connected By TCP IPv4 Adapter was improperly instantiated!")
-		a.context.SendStatus(ipv4.DriverStatusError)
+		a.context.SendStatus(ipv4.AdapterStatusError)
 		return
 	}
 
@@ -112,7 +115,7 @@ func (a *ipv4Adapter) Serve() {
 				return
 			case <-heartbeat.C:
 				// Try to send a heartbeat status
-				if err := a.context.SendStatus(ipv4.DriverStatusHandling); err != nil {
+				if err := a.context.SendStatus(ipv4.AdapterStatusHandling); err != nil {
 					return // Context must have been killed, stop heartbeating
 				}
 				heartbeat.Reset(timeBetweenHeartbeats)
@@ -133,7 +136,7 @@ func (a *ipv4Adapter) Serve() {
 		devices, err := getDevicesFromServer(a.context)
 		if err != nil {
 			a.log.Warn("error getting devices from server", "err", err)
-			a.context.SendStatus(ipv4.DriverStatusError)
+			a.context.SendStatus(ipv4.AdapterStatusError)
 			return
 		}
 
@@ -150,16 +153,16 @@ func (a *ipv4Adapter) Stop() { a.stop <- struct{}{} }
 // adapter
 func (a *ipv4Adapter) UpdateChan() chan interface{} { return a.updateChan }
 
-func (a *ipv4Adapter) isConnectedByTCPService(context ipv4.ServiceContext) bool {
+func (a *ipv4Adapter) isConnectedByTCPService() bool {
 	// log in
-	_, err := loginWRetry(context, numLoginRetries) // ignore output, only care if its successful
+	_, err := loginWRetry(a.context, numLoginRetries) // ignore output, only care if its successful
 	if err != nil {
-		a.log.Warn("endpoint is NOT a Connected By TCP service, because login was unsuccessful", "err", err, "service_ip", context.IP)
+		a.log.Warn("endpoint is NOT a Connected By TCP service, because login was unsuccessful", "err", err, "service_ip", a.context.IP)
 		return false
 	}
 
 	client := getCertificateIgnoringClient()
-	endpointURL := "https://" + context.IP.String() + "/gwr/gop.php"
+	endpointURL := "https://" + a.context.IP.String() + "/gwr/gop.php"
 	resp, err := client.Get(endpointURL)
 	if err != nil {
 		a.log.Warn("endpoint is NOT a Connected By TCP service, because of error during http.Get", "err", err, "url_attempted", endpointURL)
@@ -182,7 +185,7 @@ func (a *ipv4Adapter) isConnectedByTCPService(context ipv4.ServiceContext) bool 
 	return true
 }
 
-func getDevicesFromServer(context ipv4.ServiceContext) (map[types.ExternalDeviceID]types.Device, error) {
+func getDevicesFromServer(context *ipv4.ServiceContext) (map[types.ExternalDeviceID]types.Device, error) {
 	// Request XML from the ConnectedByTCP API running on the gateway at gatewayIP
 	gatewayXML, err := getXMLFromGateway(context)
 	if err != nil {
@@ -222,7 +225,7 @@ func getDevicesFromServer(context ipv4.ServiceContext) (map[types.ExternalDevice
 	return devices, nil
 }
 
-func loginWRetry(context ipv4.ServiceContext, numRetries int) (string, error) {
+func loginWRetry(context *ipv4.ServiceContext, numRetries int) (string, error) {
 	for i := 0; i < numRetries; i++ {
 		token, err := loginContext(context)
 		if err != nil {
@@ -241,7 +244,7 @@ func loginWRetry(context ipv4.ServiceContext, numRetries int) (string, error) {
 
 // loginContext gets valid credentials from the ConnectedByTCP Gateway and
 // stores them in the context
-func loginContext(context ipv4.ServiceContext) (string, error) {
+func loginContext(context *ipv4.ServiceContext) (string, error) {
 	uuid, token := getUUIDFromContext(context), getLoginTokenFromContext(context)
 	if uuid != "" && token != "" {
 		Log.Debug("using cached credentials", "uuid", uuid, "token", token)
@@ -312,7 +315,7 @@ func (e authFailedError) Error() string {
 
 // getXMLFromGateway queries a ConnectedByTCP Gateway API for XML representing
 // the current state of connected devices
-func getXMLFromGateway(context ipv4.ServiceContext) (string, error) {
+func getXMLFromGateway(context *ipv4.ServiceContext) (string, error) {
 	token, err := loginWRetry(context, numLoginRetries)
 	if err != nil {
 		return "", fmt.Errorf("could not log in to Connected By TCP hub")
@@ -359,7 +362,7 @@ func (a *ipv4Adapter) EnactIntent(target types.ExternalComponentID, intent types
 }
 
 // setLight sends a command to the Connected By TCP hub to change a light
-func setLight(context ipv4.ServiceContext, target types.ExternalComponentID, intent types.SetLightEmitterIntent) error {
+func setLight(context *ipv4.ServiceContext, target types.ExternalComponentID, intent types.SetLightEmitterIntent) error {
 	token, err := loginWRetry(context, numLoginRetries)
 	if err != nil {
 		return fmt.Errorf("could not log in to Connected By TCP hub")
@@ -395,7 +398,7 @@ func setLight(context ipv4.ServiceContext, target types.ExternalComponentID, int
 func uuidKey(unique string) string  { return credentialsKeyGatewayUUID + ":" + unique }
 func tokenKey(unique string) string { return credentialsKeyGatewayToken + ":" + unique }
 
-func saveUUIDToContext(context ipv4.ServiceContext, uuid string) error {
+func saveUUIDToContext(context *ipv4.ServiceContext, uuid string) error {
 	// unique is a string identifier which should be locally unique for services
 	// TODO: replace with better unique identifier than IP, if one is available
 	unique := context.IP.String()
@@ -403,7 +406,7 @@ func saveUUIDToContext(context ipv4.ServiceContext, uuid string) error {
 	return context.StoreData(key, uuid)
 }
 
-func getUUIDFromContext(context ipv4.ServiceContext) string {
+func getUUIDFromContext(context *ipv4.ServiceContext) string {
 	// unique is a string identifier which should be locally unique for services
 	// TODO: replace with better unique identifier than IP, if one is available
 	unique := context.IP.String()
@@ -416,7 +419,7 @@ func getUUIDFromContext(context ipv4.ServiceContext) string {
 	return uuid
 }
 
-func saveLoginTokenToContext(context ipv4.ServiceContext, token string) error {
+func saveLoginTokenToContext(context *ipv4.ServiceContext, token string) error {
 	// unique is a string identifier which should be locally unique for services
 	// TODO: replace with better unique identifier than IP, if one is available
 	unique := context.IP.String()
@@ -424,7 +427,7 @@ func saveLoginTokenToContext(context ipv4.ServiceContext, token string) error {
 	return context.StoreData(key, token)
 }
 
-func getLoginTokenFromContext(context ipv4.ServiceContext) string {
+func getLoginTokenFromContext(context *ipv4.ServiceContext) string {
 	// unique is a string identifier which should be locally unique for services
 	// TODO: replace with better unique identifier than IP, if one is available
 	unique := context.IP.String()
@@ -437,7 +440,7 @@ func getLoginTokenFromContext(context ipv4.ServiceContext) string {
 	return token
 }
 
-func saveUUIDAndTokenToContext(context ipv4.ServiceContext, uuid, token string) error {
+func saveUUIDAndTokenToContext(context *ipv4.ServiceContext, uuid, token string) error {
 	if err := saveUUIDToContext(context, uuid); err != nil {
 		return fmt.Errorf("could not store uuid to context: %v", err)
 	}

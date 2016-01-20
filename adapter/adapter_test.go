@@ -57,7 +57,7 @@ func (s *TestSIFTLibSuite) TestTestAdapter(c *C) {
 //
 type testIPv4AdapterFactory struct{}
 
-func (t testIPv4AdapterFactory) HandleIPv4(ipv4.ServiceContext) adapter.Adapter {
+func (t testIPv4AdapterFactory) HandleIPv4(*ipv4.ServiceContext) adapter.Adapter {
 	return &testAdapter{updateChan: make(chan interface{}, 10), repeater: true}
 }
 func (t testIPv4AdapterFactory) GetIPv4Description() ipv4.ServiceDescription {
@@ -67,13 +67,13 @@ func (t testIPv4AdapterFactory) Name() string { return "test_adapter_factory" }
 
 func (s *TestSIFTLibSuite) TestIPv4AdapterFactory(c *C) {
 	taf := testIPv4AdapterFactory{}
-	t := adapter.IPv4AdapterFactory(taf)
+	t := adapter.IPv4Factory(taf)
 	c.Assert(t, NotNil)
 
 	desc := t.GetIPv4Description()
 	c.Assert(desc.OpenPorts, DeepEquals, []uint16{12345})
 
-	a := t.HandleIPv4(ipv4.ServiceContext{})
+	a := t.HandleIPv4(&ipv4.ServiceContext{})
 	c.Assert(a, NotNil)
 	c.Assert(len(a.UpdateChan()), Equals, 0)
 	a.EnactIntent(types.ExternalComponentID{}, types.SetSpeakerIntent{}) // Noop intent, should repeat into updateChan

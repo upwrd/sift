@@ -4,14 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	log "gopkg.in/inconshreveable/log15.v2"
-	logext "gopkg.in/inconshreveable/log15.v2/ext"
-	"io/ioutil"
-	"os"
 	rawsql "github.com/upwrd/sift/db/sql"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
 	"github.com/upwrd/sift/types"
+	log "gopkg.in/inconshreveable/log15.v2"
+	logext "gopkg.in/inconshreveable/log15.v2/ext"
+	"io/ioutil"
+	"os"
 
 	// imports sqlite3 driver
 	_ "github.com/mattn/go-sqlite3"
@@ -930,73 +930,73 @@ func deleteMediaPlayerTx(tx *sqlx.Tx, compID int64) error {
 	return nil
 }
 
-func (sdb *SiftDB) UpsertAdapterCredentials(key, value string) (err error) {
-	// Get a connection to the database
-	db, err := sdb.DB()
-	if err != nil {
-		return fmt.Errorf("error getting db connection: %v", err)
-	}
-	defer db.Close()
-	// begin a database transaction
-	tx, err := db.Beginx()
-	if err != nil {
-		return fmt.Errorf("could not begin transaction: %v", err)
-	}
-	// If something bad happens, roll back the transaction
-	defer func() {
-		if err != nil {
-			if rbErr := tx.Rollback(); rbErr != nil {
-				sdb.log.Error("could not roll back db transaction", "original_err", err, "rollback_err", rbErr)
-			}
-			sdb.log.Warn("rolled back db transaction", "original_err", err)
-		} else {
-			if cmErr := tx.Commit(); cmErr != nil {
-				sdb.log.Error("could not commit transaction", "commit_err", cmErr)
-				err = fmt.Errorf("could not commit transaction: %v", cmErr)
-			}
-			sdb.log.Debug("adapter credentials updated; transaction committed")
-		}
-	}()
-
-	// Try updating the Adapter Credentials
-	q := "UPDATE adapter_credentials SET value=? WHERE key=?"
-	res, err := tx.Exec(q, value, key)
-	if err != nil {
-		err = fmt.Errorf("error updating adapter_credentials: %v", err)
-		return
-	}
-
-	// Check the number of rows affected by the update; should be 1 if the
-	// row existed, and 0 if not
-	var n int64
-	if n, err = res.RowsAffected(); err != nil {
-		err = fmt.Errorf("error getting row count (required for update): %v", err)
-		return
-	} else if n == 0 {
-		// The update failed, do an insert instead
-		q = "INSERT INTO adapter_credentials (key, value) VALUES (?, ?)"
-		_, err = tx.Exec(q, key, value)
-		if err != nil {
-			err = fmt.Errorf("error inserting adapter credentials: %v", err)
-			return
-		}
-	}
-	return
-}
-
-func (sdb *SiftDB) GetAdapterCredentials(key string) (string, error) {
-	var value string
-	// Get a connection to the database
-	db, err := sdb.DB()
-	if err != nil {
-		return "", fmt.Errorf("error getting db connection: %v", err)
-	}
-	defer db.Close()
-	if err := db.Get(&value, "SELECT value FROM adapter_credentials WHERE key=?", key); err != nil {
-		return "", fmt.Errorf("could not get credentials from database: %v", err)
-	}
-	return value, nil
-}
+//func (sdb *SiftDB) UpsertAdapterCredentials(key, value string) (err error) {
+//	// Get a connection to the database
+//	db, err := sdb.DB()
+//	if err != nil {
+//		return fmt.Errorf("error getting db connection: %v", err)
+//	}
+//	defer db.Close()
+//	// begin a database transaction
+//	tx, err := db.Beginx()
+//	if err != nil {
+//		return fmt.Errorf("could not begin transaction: %v", err)
+//	}
+//	// If something bad happens, roll back the transaction
+//	defer func() {
+//		if err != nil {
+//			if rbErr := tx.Rollback(); rbErr != nil {
+//				sdb.log.Error("could not roll back db transaction", "original_err", err, "rollback_err", rbErr)
+//			}
+//			sdb.log.Warn("rolled back db transaction", "original_err", err)
+//		} else {
+//			if cmErr := tx.Commit(); cmErr != nil {
+//				sdb.log.Error("could not commit transaction", "commit_err", cmErr)
+//				err = fmt.Errorf("could not commit transaction: %v", cmErr)
+//			}
+//			sdb.log.Debug("adapter credentials updated; transaction committed")
+//		}
+//	}()
+//
+//	// Try updating the Adapter Credentials
+//	q := "UPDATE adapter_credentials SET value=? WHERE key=?"
+//	res, err := tx.Exec(q, value, key)
+//	if err != nil {
+//		err = fmt.Errorf("error updating adapter_credentials: %v", err)
+//		return
+//	}
+//
+//	// Check the number of rows affected by the update; should be 1 if the
+//	// row existed, and 0 if not
+//	var n int64
+//	if n, err = res.RowsAffected(); err != nil {
+//		err = fmt.Errorf("error getting row count (required for update): %v", err)
+//		return
+//	} else if n == 0 {
+//		// The update failed, do an insert instead
+//		q = "INSERT INTO adapter_credentials (key, value) VALUES (?, ?)"
+//		_, err = tx.Exec(q, key, value)
+//		if err != nil {
+//			err = fmt.Errorf("error inserting adapter credentials: %v", err)
+//			return
+//		}
+//	}
+//	return
+//}
+//
+//func (sdb *SiftDB) GetAdapterCredentials(key string) (string, error) {
+//	var value string
+//	// Get a connection to the database
+//	db, err := sdb.DB()
+//	if err != nil {
+//		return "", fmt.Errorf("error getting db connection: %v", err)
+//	}
+//	defer db.Close()
+//	if err := db.Get(&value, "SELECT value FROM adapter_credentials WHERE key=?", key); err != nil {
+//		return "", fmt.Errorf("could not get credentials from database: %v", err)
+//	}
+//	return value, nil
+//}
 
 //
 // Helper functions
