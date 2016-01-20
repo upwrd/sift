@@ -1,3 +1,8 @@
 language: go
-# using the --short flag here as a hack to remove tests that involve the local network
-script: go test --short ./...
+before_install:
+  - go get github.com/axw/gocov/gocov
+  - go get github.com/mattn/goveralls
+  - if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover; fi
+script:
+  - go test --short ./... # using the --short flag here as a hack to remove tests that involve the local network
+  - $HOME/gopath/bin/goveralls -service=travis-ci
