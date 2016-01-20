@@ -1,1 +1,3 @@
 language: go
+# using the --short flag here as a hack to remove tests that involve the local network
+script: go test --short ./...

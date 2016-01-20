@@ -27,7 +27,10 @@ type SiftSuite struct{}
 
 var _ = Suite(&SiftSuite{})
 
-func (s *SiftSuite) TestServer(c *C) {
+func (s *SiftSuite) TestServerNetwork(c *C) {
+	if testing.Short() {
+		c.Skip("Test uses local network, skipping in short mode")
+	}
 	// SetLogLevel("debug")
 
 	// Start an example service server
