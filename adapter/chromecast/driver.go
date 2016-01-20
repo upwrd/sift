@@ -128,7 +128,9 @@ func (a *ipv4Adapter) Serve() {
 	}()
 
 	// Start the python script which will monitor this Chromecast service
-	cmd := exec.Command("python", "../drivers/chromecast/get_updates.py", a.context.IP.String())
+	// BUG(donald): call to script uses relative pathing; will not work if
+	// called from the wrong spot!
+	cmd := exec.Command("python", "../adapter/chromecast/get_updates.py", a.context.IP.String())
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		fmt.Printf("err cmt.StdoutPipe(): %v\n", err)
