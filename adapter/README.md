@@ -48,4 +48,5 @@ AdapterFactories are distinguished by the networks on which they operate. An
 AdapterFactory that produces Adapters that operate on IPv4 services must also
 implement IPv4AdapterFactory.
 
-See https://github.com/upwrd/adapters/example for a complete example.
+See https://github.com/upwrd/sift/tree/master/adapter/example for a complete
+example.
