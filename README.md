@@ -102,7 +102,7 @@ func main() {
 
 ## Data Model
 To learn more about the SIFT data types and structure, see:
-https://github.com/upwrd/sift/types
+https://github.com/upwrd/sift/tree/master/types
 
 ## Compatibility
 
@@ -112,4 +112,4 @@ https://github.com/upwrd/sift/types
 | Google Chromecast         | IPv4     | Media Players  | Does not work with all Chromecast apps, most notably  Netflix :( |
 
 To learn how to add support for new devices and device types, see
-https://github.com/upwrd/sift/drivers
+https://github.com/upwrd/sift/tree/master/adapter
