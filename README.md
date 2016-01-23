@@ -1,8 +1,6 @@
 # SIFT (Simple Interface for Functional Things)
 
-[![Join the chat at https://gitter.im/upwrd/sift](https://badges.gitter.im/upwrd/sift.svg)](https://gitter.im/upwrd/sift?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/upwrd/sift) [![Build Status](https://travis-ci.org/upwrd/sift.svg?branch=master)](https://travis-ci.org/upwrd/sift)
+[![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/upwrd/sift) [![Build Status](https://travis-ci.org/upwrd/sift.svg?branch=master)](https://travis-ci.org/upwrd/sift) [![Join the chat at https://gitter.im/upwrd/sift](https://badges.gitter.im/upwrd/sift.svg)](https://gitter.im/upwrd/sift?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 SIFT is a framework that enables developers to control connected devices without
 having to understand their implementation details.
