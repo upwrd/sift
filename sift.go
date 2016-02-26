@@ -11,8 +11,8 @@
 package sift
 
 import (
-	"code.google.com/p/go-uuid/uuid"
 	"fmt"
+	"github.com/pborman/uuid"
 	"github.com/thejerf/suture"
 	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/adapter/chromecast"

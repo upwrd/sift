@@ -1,8 +1,8 @@
 package ipv4
 
 import (
-	"code.google.com/p/go-uuid/uuid"
 	"fmt"
+	"github.com/pborman/uuid"
 	"github.com/thejerf/suture"
 	log "gopkg.in/inconshreveable/log15.v2"
 	logext "gopkg.in/inconshreveable/log15.v2/ext"

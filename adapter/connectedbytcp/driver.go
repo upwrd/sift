@@ -2,9 +2,9 @@ package connectedbytcpnew
 
 import (
 	"bytes"
-	uuidlib "code.google.com/p/go-uuid/uuid"
 	"crypto/tls"
 	"fmt"
+	uuidlib "github.com/pborman/uuid"
 	"github.com/upwrd/sift/adapter"
 	"github.com/upwrd/sift/lib"
 	"github.com/upwrd/sift/logging"
